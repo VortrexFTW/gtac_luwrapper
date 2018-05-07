@@ -1,0 +1,4 @@
+<meta>
+	<script src="server.nut" type="server" language="squirrel" />
+	<script src="client.nut" type="client" language="squirrel" />
+</meta>
