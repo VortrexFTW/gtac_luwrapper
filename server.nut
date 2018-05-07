@@ -1,7 +1,5 @@
-LU <- {};
-
-LU_PLAYERS <- array(256 , false );
-LU_VEHICLES <- array(256 , false );
+LU_PLAYERS <- array(128, false);
+LU_VEHICLES <- array(256, false);
 
 NetworkEventPrefix <- "ChangeMe";
 
@@ -10,221 +8,123 @@ NetworkEventPrefix <- "ChangeMe";
 // =============================================================================
 
 class LUPlayer {
-	GTACPlayer = false;
-	GTACClient = false;
-
-	EnterVehicle = function() {
-		::makePlayerEnterVehicle(GTACPlayer );
-	};
+	_GTACPlayer = false;
+	_GTACClient = false;
 	
-	ExitVehicle = function() {
-		::makePlayerExitVehicle(GTACPlayer );
-	};
+	function _set(szKey, pValue) {
+		print("SET " + szKey + " to " + pValue);
+		
+		local szEventName = "Player.Set." + szKey;
+		print(szEventName);
 	
-	ForceToSpawnScreen = function() {
-		::forcePlayerToSpawnScreen(GTACPlayer );
-	};
-	
-	GetBoundariesLower = function() {
-	};
-	
-	GetBoundariesUpper = function() {
-	};
-	
-	GetIgnored = function() {
-	};
-	
-	RemoveFromVehicle = function() {
-	};
-	
-	RemoveLimb = function() {
-	};
-	
-	SetAnim = function() {
-	};
-	
-	SetBoundaries = function() {
-	};
-	
-	SetIgnored = function() {
-	};
-	
-	SetIgnoredBy = function() {
-	};
-	
-	SetWeapon = function(WeaponID , Ammo){
-		::givePlayerWeapon(WeaponID , Ammo );
-	};
-	
-	Spawn = function() {
-	};
-	
-	// -------------------------------------------------------------------------
-	
-	function _get(szKey){
-		triggerNetworkEvent("lu.update.plr", this.GTACClient, this.GTACPlayer);
-		switch(szKey){	
-			case "Angle":
-				return ::this.GTACPlayer.heading;
-				
-			case "ID":
-				return ::this.GTACClient.index;
-				
-			case "IP":
-				return ::this.GTACClient.ip;
-				
-			case "Island":
-				return 0;
-				
-			case "LUID":
-				return "";
-				
-			case "Name":
-				return ::this.GTACClient.name;
-				
-			case "Ping":
-				return ::this.GTACPlayer.ping;
-				
-			case "Train"
-				if(this.GTACPlayer.vehicle.type == ELEMENT_TRAIN) {
-					return ::this.GTACPlayer.vehicle;
-				}
-				return -1;
-				
-			case "Vehicle":
-				return ::this.GTACPlayer.vehicle;
-				
-			case "Velocity":
-				return ::this.GTACPlayer.velocity
-				
-			case "VirtualWorld":
-				return 0;
-				
-			case "WantedLevel":
-				return ::this.GTACPlayer.wantedLevel;
-				
-			case "WeaponState":	
-				return 0;
-				
-			default:
-				return ::this.GTACPlayer.setData(szKey);	
-		}
-	}
-	
-	// -------------------------------------------------------------------------
-	
-	function _set(szKey , pValue ){
-		switch(szKey){
+		switch(szKey) {				
 			case "Alpha":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "Angle":
-				::this.GTACPlayer.setData(szKey, pValue.tofloat(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tofloat());
 				return pValue;
 				
 			case "Armour":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "Cash":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "Colour":
-				::this.GTACPlayer.setData(szKey, pValue.GTACColour, true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.GTACColour);
 				return pValue;
 				
 			case "ColouredName":
-				::this.GTACPlayer.setData(szKey, pValue.tostring(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tostring());
 				return pValue;
 				
 			case "Health":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "Immune":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
-			case "LUID":
-				return "";
-				
 			case "Marker":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "MarkerScale":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "MarkerSprite":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "Muted":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "Name":
-				::this.GTACPlayer.setData(szKey, pValue.tostring(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tostring());
 				return pValue;
 				
 			case "NametagColour":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "NametagColour":
-				::this.GTACPlayer.setData(szKey, pValue.GTACColour, true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.GTACColour);
+				return pValue;
+
+			case "Skin":
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "Team":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "Train":
-				::this.GTACPlayer.setData(szKey, pValue.GTACVehicle, true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.GTACVehicle);
 				return pValue;
 				
 			case "Vehicle":
-				::this.GTACPlayer.setData(szKey, pValue.GTACVehicle, true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.GTACVehicle);
 				return pValue;
 				
 			case "VehicleSeat":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "Velocity":
-				::this.GTACPlayer.setData(szKey, pValue.GTACVec3, true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.GTACVec3);
 				return pValue;
 				
 			case "VirtualWorld":
-				::this.GTACPlayer.setData(szKey,  pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer,  pValue.tointeger());
 				return pValue;
 				
 			case "WantedLevel":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "Weapon":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
 				return pValue;
 				
 			case "WeaponAmmo":
-				::this.GTACPlayer.setData(szKey, pValue.tointeger(), true);
-				return pValue;
-				
-			default:
-				return null;		
+				triggerNetworkEvent(szEventName, _GTACClient, _GTACPlayer, pValue.tointeger());
+				return pValue;		
 		}
-		triggerNetworkEvent("lu.sync.plr", null, this.GTACPlayer);
 	}	
 	
 	// -------------------------------------------------------------------------
 	
 	constructor(pGTACClient){
-		GTACClient = pGTACClient;
-		GTACPlayer = pGTACClient.player;
+		_GTACClient = pGTACClient;
+		_GTACPlayer = pGTACClient.player;
 		/*	
 		Alpha = 255;
 		Angle = ::getPlayerAngle(this );
@@ -284,13 +184,7 @@ class LUPlayer {
 // -----------------------------------------------------------------------------
 
 class Colour {
-    
-    GTACColour = false;
-    
-    r = 0;
-    g = 0;
-    b = 0;
-    alpha = 0;
+	GTACColour = false;
 	
 	function _get(szKey) {
 		switch (szKey) {
@@ -334,35 +228,28 @@ class Colour {
 				return false;
 		}
 	}		
-    
-    constructor(r , g , b , a = 255 ){
-        r = r; 
-        g = g;
-        b = b;
-        a = a;
-        GTACColour = ::toColour(r , g , b , a ); 
-    }
+	
+	constructor(r, g, b, a = 255 ) {
+		GTACColour = ::toColour(r, g, b, a); 
+	}
 
 }
 
 // -----------------------------------------------------------------------------
 
 class Vector {
-    GTACVector = false;
-    x = 0;
-    y = 0;
-    z = 0;
+	GTACVector = false;
 	
 	function _get(szKey){
-		switch(Key ){
+		switch(szKey){
 			case "x":
-				return this.GTACVector [ 0 ];
+				return this.GTACVector.x;
 				
 			case "y":
-				return this.GTACVector [ 1 ];
+				return this.GTACVector.y;
 
 			case "z":
-				return this.GTACVector [ 2 ];	
+				return this.GTACVector.z;	
 
 			default:
 				return false;
@@ -372,29 +259,26 @@ class Vector {
 	function _set(szKey, pValue){
 		switch(szKey){
 			case "x":
-				local newVec = ::Vec3(Value , this.GTACVector [ 1 ] , this.GTACVector [ 2 ] );
+				local newVec = ::Vec3(pValue, this.GTACVector[1], this.GTACVector[2]);
 				this.GTACVector = newVec;
 				return true;
 				
 			case "y":
-				local newVec = ::Vec3(this.GTACVector [ 0 ] , Value , this.GTACVector [ 2 ] );
+				local newVec = ::Vec3(this.GTACVector[0], pValue, this.GTACVector[2]);
 				this.GTACVector = newVec;
 
 			case "z":
-				local newVec = ::Vec3(this.GTACVector [ 0 ] , this.GTACVector [ 1 ] , Value );
+				local newVec = ::Vec3(this.GTACVector[0], this.GTACVector[1], pValue );
 				this.GTACVector = newVec;
 
 			default:
 				return false;
 		}
 	}		
-    
-    constructor(x , y , z ){
-        x = x; 
-        y = y;
-        z = z;
-        GTACVector = ::Vec3(r , g , b , a ); 
-    }
+	
+	constructor(x, y, z) {
+		GTACVector = ::Vec3(r, g, b, 255); 
+	}
 }
 
 // =============================================================================
@@ -402,7 +286,46 @@ class Vector {
 // =============================================================================
 
 function MessagePlayer(szMessage, pPlayer, pColour = Colour(255, 255, 255)) {
-	outputChatBox(szMessage, pColour.GTACColour, pColour.GTACClient);
+	outputChatBox(szMessage, pColour.GTACColour, pPlayer._GTACClient);
+}
+
+// -----------------------------------------------------------------------------
+
+function NumTok(szString, szDelimiter) {
+	return split(szString, szDelimiter).len();
+}
+
+// -----------------------------------------------------------------------------
+
+function GetTok(szString, szDelimiter, iIndex) {
+	if(iIndex <= 0) {
+		return false;
+	}
+	
+	if((iIndex-1) > NumTok(szString, szDelimiter)) {
+		return false;
+	}
+	
+	return split(szString, szDelimiter)[iIndex-1];
+}
+
+// -----------------------------------------------------------------------------
+
+function IsNum(iInteger) {
+	return (type(iInteger)=="integer") ? true : false;
+}
+
+// -----------------------------------------------------------------------------
+
+function FindPlayer(szParams) {
+	if(type(szParams) == "integer") {
+		local iPlayerID = szParams.tointeger();
+		if(LU_PLAYERS[iPlayerID]) {
+			return LU_PLAYERS[iPlayerID];
+		}
+	}
+	
+	return false
 }
 
 // =============================================================================
@@ -423,20 +346,25 @@ addEventHandler("OnResourceStart", function(pEvent, pResource) {
 // -----------------------------------------------------------------------------
 
 addEventHandler("OnPlayerConnect", function(pEvent, szIP, szPort) {
+
 });
 
 // -----------------------------------------------------------------------------
 
 addEventHandler("OnPlayerJoined", function(pEvent, pClient) {
-	::LU_PLAYERS[pClient.index] = ::LUPlayer(pClient);
+	LU_PLAYERS[pClient.index] = LUPlayer(pClient);
 });
 
 // -----------------------------------------------------------------------------
 
 addEventHandler("OnPlayerChat", function(pEvent, pClient, szMessage) {
+	if(LU_PLAYERS[pClient.index] == false) {
+		LU_PLAYERS[pClient.index] = LUPlayer(pClient);
+	}
+	
 	if(szMessage.slice(0, 1) == "!"){
-		local pSplitMessage = split(szMessage , " " );
-		local szCommand = pSplitMessage [ 0 ];
+		local pSplitMessage = split(szMessage, " ");
+		local szCommand = pSplitMessage[0];
 		local szParams = "";
 		
 		if(pSplitMessage.len() > 0){
@@ -454,46 +382,18 @@ addEventHandler("OnPlayerChat", function(pEvent, pClient, szMessage) {
 		}
 		
 		if(getroottable().rawin("onPlayerCommand")) {
-			if(type(getroottable().rawget("onPlayerCommand")) == "function"){
-				onPlayerCommand(::LU_PLAYERS [ pClient.index ] , szCommand.slice(1, szCommand.len()) , szParams );
+			if(type(onPlayerCommand) == "function") {
+				onPlayerCommand(LU_PLAYERS[pClient.index], szCommand.slice(1, szCommand.len()), szParams);
 			}
 		}
 	}
 });
 
 // =============================================================================
-// -- Liberty Unleashed Event Hooks
+// -- Other Shit
 // =============================================================================
 
-function onPlayerJoin(pPlayer){	
-}
-
-// -----------------------------------------------------------------------------
-
-function getClientID(Client){
-	foreach(ii , iv in ::getClients()){
-		if(iv == Client){
-			return ii;
-		
-		}
-	}
-}
-
-// -----------------------------------------------------------------------------
-
-function onPlayerCommand(pPlayer, szCommand, szParams){
-	switch(szCommand.tolower()) {
-		case "lustars":
-			if(szParams != ""){
-				pPlayer.WantedLevel = szParams.tointeger();
-			} else {
-				MessagePlayer("Stars: " + pPlayer.WantedLevel , pPlayer , Colour(255 , 255 , 255 ));
-			}
-			break;
-			
-		default:
-			break;
-	}
-}
-
-// -----------------------------------------------------------------------------
+addCommandHandler("code", function(szCommand, szParams, pClient) {
+	local szOutput = compilestring("return " + szParams)();
+	//outputChatBox("Code returns: " + szOutput, COLOUR_YELLOW);
+});

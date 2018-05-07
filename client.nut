@@ -2,28 +2,6 @@
 // -- Player Functions
 // =============================================================================
 
-addNetworkHandler("lu.sync.plr", function(player) {
-    // Sync the most rapidly updated ones first
-	player.position = player.getData("Pos");
-	player.velocity = player.getData("Velocity");
-	player.turnVelocity = player.getData("TurnVelocity");
-	player.heading = player.getData("Angle");
-	player.health = player.getData("Health");
-	player.armour = player.getData("Armour");
-	
-	player.skin = player.getData("Skin");
-	//player.money = player.getData("Cash");
-	player.alpha = player.getData("Alpha");
-	player.wantedLevel = player.getData("WantedLevel");
-	
-	if(player.getData("Vehicle").id != player.vehicle.id) {
-		player.warpIntoVehicle(player.getData("Vehicle"), true)
-	}
-	
-	player.invincible = player.getData("Immune");
-	player.setProofs(player.getData("Immune"), player.getData("Immune"), player.getData("Immune"), player.getData("Immune"), player.getData("Immune"));
-});
-
 // -----------------------------------------------------------------------------
 
 addNetworkHandler("Player.SetWeapon", function(player, weaponID, ammo) {
@@ -32,14 +10,63 @@ addNetworkHandler("Player.SetWeapon", function(player, weaponID, ammo) {
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.ClearWeapons", function(player) {
-    player.clearWeapons();
+addNetworkHandler("Player.ClearWeapons", function(pPlayer) {
+    pPlayer.clearWeapons();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.RemoveFromVehicle", function(player) {
-    player.removeFromVehicle();
+addNetworkHandler("Player.Set.WantedLevel", function(pPlayer, iWantedLevel) {
+	::print("WANTEDLEVEL " + iWantedLevel);
+	pPlayer.wantedLevel = iWantedLevel;
+});
+
+// -----------------------------------------------------------------------------
+
+addNetworkHandler("Player.Set.Angle", function(pPlayer, angle) {
+	pPlayer.heading = angle;
+});
+
+// -----------------------------------------------------------------------------
+
+addNetworkHandler("Player.Set.Skin", function(pPlayer, iSkinID) {
+	pPlayer.skin = iSkinID;
+});
+
+// -----------------------------------------------------------------------------
+
+addNetworkHandler("Player.Set.Health", function(pPlayer, iHealth) {
+	pPlayer.health = iHealth;
+});
+
+// -----------------------------------------------------------------------------
+
+addNetworkHandler("Player.Set.Armour", function(pPlayer, iArmour) {
+	pPlayer.armour = iArmour;
+});
+
+// -----------------------------------------------------------------------------
+
+addNetworkHandler("Player.Set.Pos", function(pPlayer, fX, fY, fZ) {
+	pPlayer.position = Vec3(fX, fY, fZ);
+});
+
+// -----------------------------------------------------------------------------
+
+addNetworkHandler("Player.Set.Velocity", function(pPlayer, fX, fY, fZ) {
+	pPlayer.velocity = Vec3(fX, fY, fZ);
+});
+
+// -----------------------------------------------------------------------------
+
+addNetworkHandler("Player.Set.TurnVelocity", function(player, fX, fY, fZ) {
+	player.turnVelocity = Vec3(fX, fY, fZ);
+});
+
+// -----------------------------------------------------------------------------
+
+addNetworkHandler("Player.RemoveFromVehicle", function(pPlayer) {
+    pPlayer.removeFromVehicle();
 });
 
 // -----------------------------------------------------------------------------
