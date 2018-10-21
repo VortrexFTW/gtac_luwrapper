@@ -1,6 +1,6 @@
 <meta>
+	<script src="server.js" type="server" language="javascript" />
+
 	<script src="server.nut" type="server" language="squirrel" />
 	<script src="client.nut" type="client" language="squirrel" />
-	
-	<script src="server_proof.nut" type="server" language="squirrel" />
 </meta>
