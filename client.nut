@@ -1,8 +1,6 @@
-NetworkPrefix <- "";
-
-addNetworkHandler("LU.NetworkPrefix", function(szNetworkPrefix) {
-	::NetworkPrefix = szNetworkPrefix;
-});
+// =============================================================================
+// -- Setup and config and shit
+// =============================================================================
 
 // =============================================================================
 // -- Player Functions
@@ -10,110 +8,116 @@ addNetworkHandler("LU.NetworkPrefix", function(szNetworkPrefix) {
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.SetWeapon", function(iPlayerId, iWeaponID, iAmmo) {
-    getElementFromId(iPlayerId).giveWeapon(iWeaponID, iAmmo);
+GTAC.addNetworkHandler("Player.SetWeapon", function(iPlayerId, iWeaponID, iAmmo) {
+    GTAC.getElementFromId(iPlayerId).giveWeapon(iWeaponID, iAmmo, true);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.ClearWeapons", function(iPlayerId) {
-    getElementFromId(iPlayerId).clearWeapons();
+GTAC.addNetworkHandler("Player.ClearWeapons", function(iPlayerId) {
+    GTAC.getElementFromId(iPlayerId).clearWeapons();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.Set.WantedLevel", function(iPlayerId, iWantedLevel) {
-	getElementFromId(iPlayerId).wantedLevel = iWantedLevel;
+GTAC.addNetworkHandler("Player.Set.WantedLevel", function(iPlayerId, iWantedLevel) {
+	GTAC.getElementFromId(iPlayerId).wantedLevel = iWantedLevel;
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.Set.Angle", function(iPlayerId, angle) {
-	getElementFromId(iPlayerId).heading = angle;
+GTAC.addNetworkHandler("Player.Set.Angle", function(iPlayerId, fAngle) {
+	GTAC.getElementFromId(iPlayerId).heading = fAngle;
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.Set.Skin", function(iPlayerId, iSkinID) {
-	getElementFromId(iPlayerId).skin = iSkinID;
+GTAC.addNetworkHandler("Player.Set.Cash", function(iPlayerId, iAmount) {
+	GTAC.getElementFromId(iPlayerId).money = iAmount;
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.Set.Health", function(iPlayerId, iHealth) {
-	getElementFromId(iPlayerId).health = iHealth;
+GTAC.addNetworkHandler("Player.Set.Skin", function(iPlayerId, iSkinID) {
+	GTAC.getElementFromId(iPlayerId).skin = iSkinID;
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.Set.Armour", function(iPlayerId, iArmour) {
-	getElementFromId(iPlayerId).armour = iArmour;
+GTAC.addNetworkHandler("Player.Set.Health", function(iPlayerId, iHealth) {
+	GTAC.getElementFromId(iPlayerId).health = iHealth;
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.Set.Pos", function(iPlayerId, fX, fY, fZ) {
-	getElementFromId(iPlayerId).position = Vec3(fX, fY, fZ);
+GTAC.addNetworkHandler("Player.Set.Armour", function(iPlayerId, iArmour) {
+	GTAC.getElementFromId(iPlayerId).armour = iArmour;
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.Set.Velocity", function(iPlayerId, fX, fY, fZ) {
-	getElementFromId(iPlayerId).velocity = Vec3(fX, fY, fZ);
+GTAC.addNetworkHandler("Player.Set.Pos", function(iPlayerId, fX, fY, fZ) {
+	GTAC.getElementFromId(iPlayerId).position = Vec3(fX, fY, fZ);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.Set.TurnVelocity", function(iPlayerId, fX, fY, fZ) {
-	getElementFromId(iPlayerId).turnVelocity = Vec3(fX, fY, fZ);
+GTAC.addNetworkHandler("Player.Set.Velocity", function(iPlayerId, fX, fY, fZ) {
+	GTAC.getElementFromId(iPlayerId).velocity = Vec3(fX, fY, fZ);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.RemoveFromVehicle", function(iPlayerId) {
-    getElementFromId(iPlayerId).removeFromVehicle();
+GTAC.addNetworkHandler("Player.Set.TurnVelocity", function(iPlayerId, fX, fY, fZ) {
+	GTAC.getElementFromId(iPlayerId).turnVelocity = Vec3(fX, fY, fZ);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.SetAnim", function(iPlayerId, iAnimGroup) {
-    getElementFromId(iPlayerId).animGroup = iAnimGroup;
+GTAC.addNetworkHandler("Player.RemoveFromVehicle", function(iPlayerId) {
+    GTAC.getElementFromId(iPlayerId).removeFromVehicle();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.RemoveLimb", function(iPlayerId, iBodyPart) {
-    getElementFromId(iPlayerId).removeBodyPart(iBodyPart);
+GTAC.addNetworkHandler("Player.SetAnim", function(iPlayerId, iAnimGroup) {
+    GTAC.getElementFromId(iPlayerId).animGroup = iAnimGroup;
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.EnterVehicle", function(iPlayerId, pVehicle, iDoor) {
-    getElementFromId(iPlayerId).enterVehicle(pVehicle, (iDoor == 0) ? true : false);
+GTAC.addNetworkHandler("Player.RemoveLimb", function(iPlayerId, iBodyPart) {
+    GTAC.getElementFromId(iPlayerId).removeBodyPart(iBodyPart);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.ExitVehicle", function(iPlayerId) {
-    getElementFromId(iPlayerId).exitVehicle();
+GTAC.addNetworkHandler("Player.EnterVehicle", function(iPlayerId, pVehicle, iDoor) {
+    GTAC.getElementFromId(iPlayerId).enterVehicle(pVehicle, (iDoor == 0) ? true : false);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.RemoveFromVehicle", function(iPlayerId) {
-    getElementFromId(iPlayerId).removeFromVehicle();
+GTAC.addNetworkHandler("Player.ExitVehicle", function(iPlayerId) {
+    GTAC.getElementFromId(iPlayerId).exitVehicle();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.Duck", function(iPlayerId) {
-    getElementFromId(iPlayerId).duck();
+GTAC.addNetworkHandler("Player.RemoveFromVehicle", function(iPlayerId) {
+    GTAC.getElementFromId(iPlayerId).removeFromVehicle();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Player.FuckYou", function(iPlayerId) {
-    getElementFromId(iPlayerId).fuckU();
+GTAC.addNetworkHandler("Player.Duck", function(iPlayerId) {
+    GTAC.getElementFromId(iPlayerId).duck();
+});
+
+// -----------------------------------------------------------------------------
+
+GTAC.addNetworkHandler("Player.FuckYou", function(iPlayerId) {
+    GTAC.getElementFromId(iPlayerId).fuckU();
 });
 
 // =============================================================================
@@ -122,241 +126,241 @@ addNetworkHandler("Player.FuckYou", function(iPlayerId) {
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.SetWeapon", function(iCivilianId, weaponId, ammo) {
-    getElementFromId(iCivilianId).giveWeapon(weaponId, ammo);
+GTAC.addNetworkHandler("Civilian.SetWeapon", function(iCivilianId, weaponId, ammo) {
+    GTAC.getElementFromId(iCivilianId).giveWeapon(weaponId, ammo);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.ClearWeapons", function(iCivilianId) {
-    getElementFromId(iCivilianId).clearWeapons();
+GTAC.addNetworkHandler("Civilian.ClearWeapons", function(iCivilianId) {
+    GTAC.getElementFromId(iCivilianId).clearWeapons();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.RemoveFromVehicle", function(iCivilianId) {
-    getElementFromId(iCivilianId).removeFromVehicle();
+GTAC.addNetworkHandler("Civilian.RemoveFromVehicle", function(iCivilianId) {
+    GTAC.getElementFromId(iCivilianId).removeFromVehicle();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.WalkTo", function(iCivilianId, pos) {
-    getElementFromId(iCivilianId).walkTo(pos);
+GTAC.addNetworkHandler("Civilian.WalkTo", function(iCivilianId, pos) {
+    GTAC.getElementFromId(iCivilianId).walkTo(pos);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.RunTo", function(iCivilianId, pos) {
-    getElementFromId(iCivilianId).runTo(pos);
+GTAC.addNetworkHandler("Civilian.RunTo", function(iCivilianId, pos) {
+    GTAC.getElementFromId(iCivilianId).runTo(pos);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.Duck", function(iCivilianId) {
-    getElementFromId(iCivilianId).duck();
+GTAC.addNetworkHandler("Civilian.Duck", function(iCivilianId) {
+    GTAC.getElementFromId(iCivilianId).duck();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.FuckU", function(iCivilianId) {
-    getElementFromId(iCivilianId).fuckU();
+GTAC.addNetworkHandler("Civilian.FuckU", function(iCivilianId) {
+    GTAC.getElementFromId(iCivilianId).fuckU();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.HailTaxi", function(iCivilianId) {
-    getElementFromId(iCivilianId).hailTaxi();
+GTAC.addNetworkHandler("Civilian.HailTaxi", function(iCivilianId) {
+    GTAC.getElementFromId(iCivilianId).hailTaxi();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.AimAt", function(iCivilianId, thing) {
-    getElementFromId(iCivilianId).pointGunAt(thing);
+GTAC.addNetworkHandler("Civilian.AimAt", function(iCivilianId, thing) {
+    GTAC.getElementFromId(iCivilianId).pointGunAt(thing);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.AddThreat", function(iCivilianId, threat) {
-    getElementFromId(iCivilianId).setThreatSearch(threat);
+GTAC.addNetworkHandler("Civilian.AddThreat", function(iCivilianId, threat) {
+    GTAC.getElementFromId(iCivilianId).setThreatSearch(threat);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.ClearThreats", function(iCivilianId) {
-    getElementFromId(iCivilianId).clearThreatSearch();
+GTAC.addNetworkHandler("Civilian.ClearThreats", function(iCivilianId) {
+    GTAC.getElementFromId(iCivilianId).clearThreatSearch();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.EnterVehicle", function(iCivilianId, vehicle, driver) {
-    getElementFromId(iCivilianId).enterVehicle(vehicle, driver);
+GTAC.addNetworkHandler("Civilian.EnterVehicle", function(iCivilianId, vehicle, driver) {
+    GTAC.getElementFromId(iCivilianId).enterVehicle(vehicle, driver);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.ExitVehicle", function(iCivilianId) {
-    getElementFromId(iCivilianId).exitVehicle();
+GTAC.addNetworkHandler("Civilian.ExitVehicle", function(iCivilianId) {
+    GTAC.getElementFromId(iCivilianId).exitVehicle();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.RemoveFromVehicle", function(iCivilianId) {
-    getElementFromId(iCivilianId).removeFromVehicle();
+GTAC.addNetworkHandler("Civilian.RemoveFromVehicle", function(iCivilianId) {
+    GTAC.getElementFromId(iCivilianId).removeFromVehicle();
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.SetWanderPath", function(iCivilianId, wanderPath) {
-    getElementFromId(iCivilianId).setWanderPath(wanderPath);
+GTAC.addNetworkHandler("Civilian.SetWanderPath", function(iCivilianId, wanderPath) {
+    GTAC.getElementFromId(iCivilianId).setWanderPath(wanderPath);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.Say", function(iCivilianId, speechId) {
-    getElementFromId(iCivilianId).say(speechId);
+GTAC.addNetworkHandler("Civilian.Say", function(iCivilianId, speechId) {
+    GTAC.getElementFromId(iCivilianId).say(speechId);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.SetAnim", function(iCivilianId, animGroup) {
-    getElementFromId(iCivilianId).animGroup = animGroup;
+GTAC.addNetworkHandler("Civilian.SetAnim", function(iCivilianId, animGroup) {
+    GTAC.getElementFromId(iCivilianId).animGroup = animGroup;
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.RemoveLimb", function(iCivilianId, bodyPart) {
-    getElementFromId(iCivilianId).removeBodyPart(bodyPart);
+GTAC.addNetworkHandler("Civilian.RemoveLimb", function(iCivilianId, bodyPart) {
+    GTAC.getElementFromId(iCivilianId).removeBodyPart(bodyPart);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.SetObjective", function(iCivilianId, objectiveId, x, y, z) {
-    getElementFromId(iCivilianId).setObjective(objectiveId, x, y, z);
+GTAC.addNetworkHandler("Civilian.SetObjective", function(iCivilianId, objectiveId, x, y, z) {
+    GTAC.getElementFromId(iCivilianId).setObjective(objectiveId, x, y, z);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Civilian.SetWeapon", function(civilian, weaponId) {
-    getElementFromId(iCivilianId).weapon = weaponId;
+GTAC.addNetworkHandler("Civilian.SetWeapon", function(civilian, weaponId) {
+    GTAC.getElementFromId(iCivilianId).weapon = weaponId;
 });
 
 // =============================================================================
 // -- Vehicle Functions
 // =============================================================================
 
-addNetworkHandler("Vehicle.Set.Health", function(pVehicle, iHealth) {
-    getElementFromId(iVehicleId).health = iHealth;
+GTAC.addNetworkHandler("Vehicle.Set.Health", function(pVehicle, iHealth) {
+    GTAC.getElementFromId(iVehicleId).health = iHealth;
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Vehicle.Get.Health", function(pVehicle) {
-    return getElementFromId(iVehicleId).health;
+GTAC.addNetworkHandler("Vehicle.Get.Health", function(pVehicle) {
+    return GTAC.getElementFromId(iVehicleId).health;
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Vehicle.Set.Pos", function(pVehicle, fX, fY, fZ) {
-    getElementFromId(iVehicleId).position = Vec3(fX, fY, fZ);
+GTAC.addNetworkHandler("Vehicle.Set.Pos", function(pVehicle, fX, fY, fZ) {
+    GTAC.getElementFromId(iVehicleId).position = Vec3(fX, fY, fZ);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Vehicle.Set.Velocity", function(pVehicle, fX, fY, fZ) {
-    getElementFromId(iVehicleId).velocity = Vec3(fX, fY, fZ);
+GTAC.addNetworkHandler("Vehicle.Set.Velocity", function(pVehicle, fX, fY, fZ) {
+    GTAC.getElementFromId(iVehicleId).velocity = Vec3(fX, fY, fZ);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Vehicle.Set.TurnVelocity", function(pVehicle, fX, fY, fZ) {
-    getElementFromId(iVehicleId).turnVelocity = Vec3(fX, fY, fZ);
+GTAC.addNetworkHandler("Vehicle.Set.TurnVelocity", function(pVehicle, fX, fY, fZ) {
+    GTAC.getElementFromId(iVehicleId).turnVelocity = Vec3(fX, fY, fZ);
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Vehicle.Fix", function(pVehicle) {
-    getElementFromId(iVehicleId).fix()
+GTAC.addNetworkHandler("Vehicle.Fix", function(pVehicle) {
+    GTAC.getElementFromId(iVehicleId).fix()
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Vehicle.Respawn", function(pVehicle) {
+GTAC.addNetworkHandler("Vehicle.Respawn", function(pVehicle) {
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Vehicle.Explode", function(pVehicle) {
+GTAC.addNetworkHandler("Vehicle.Explode", function(pVehicle) {
 });
 
 // -----------------------------------------------------------------------------
 
-addNetworkHandler("Vehicle.Set.SpawnPos", function(iVehicleId, fX, fY, fZ) {
+GTAC.addNetworkHandler("Vehicle.Set.SpawnPos", function(iVehicleId, fX, fY, fZ) {
 });
 
 
-addNetworkHandler("Vehicle.DriveTo", function(iVehicleId, fX, fY, fZ) {
-	getElementFromId(iVehicleId).driveTo(fX, fY, fZ);
+GTAC.addNetworkHandler("Vehicle.DriveTo", function(iVehicleId, fX, fY, fZ) {
+	GTAC.getElementFromId(iVehicleId).driveTo(fX, fY, fZ);
 });
 
-addNetworkHandler("Vehicle.Set.Colour1", function(iVehicleId, iColour) {
-	getElementFromId(iVehicleId).colour1 = iColour;
+GTAC.addNetworkHandler("Vehicle.Set.Colour1", function(iVehicleId, iColour) {
+	GTAC.getElementFromId(iVehicleId).colour1 = iColour;
 });
 
-addNetworkHandler("Vehicle.Set.Colour2", function(iVehicleId, iColour) {
-	getElementFromId(iVehicleId).colour2 = iColour;
+GTAC.addNetworkHandler("Vehicle.Set.Colour2", function(iVehicleId, iColour) {
+	GTAC.getElementFromId(iVehicleId).colour2 = iColour;
 });
 
-addNetworkHandler("Vehicle.Set.Colour3", function(iVehicleId, iColour) {
+GTAC.addNetworkHandler("Vehicle.Set.Colour3", function(iVehicleId, iColour) {
 	if(game.game != GAME_GTA_SA && game.game != GAME_GTA_IV && game.game != GAME_GTA_IV_EFLC) {
 		return false;
 	}
-	getElementFromId(iVehicleId).colour3 = iColour;
+	GTAC.getElementFromId(iVehicleId).colour3 = iColour;
 });
 
-addNetworkHandler("Vehicle.Set.Colour4", function(iVehicleId, iColour) {
+GTAC.addNetworkHandler("Vehicle.Set.Colour4", function(iVehicleId, iColour) {
 	if(game.game != GAME_GTA_SA && game.game != GAME_GTA_IV && game.game != GAME_GTA_IV_EFLC) {
 		return false;
 	}
-	getElementFromId(iVehicleId).colour4 = iColour;
+	GTAC.getElementFromId(iVehicleId).colour4 = iColour;
 });
 
-addNetworkHandler("Vehicle.Set.PaintJob", function(iVehicleId, iPaintJob) {
+GTAC.addNetworkHandler("Vehicle.Set.PaintJob", function(iVehicleId, iPaintJob) {
 	if(game.game != GAME_GTA_SA) {
 		return false;
 	}
 });
 
-addNetworkHandler("Vehicle.AddComponent", function(iVehicleId, iComponent) {
+GTAC.addNetworkHandler("Vehicle.AddComponent", function(iVehicleId, iComponent) {
 	if(game.game != GAME_GTA_SA) {
 		return false;
 	}
 });
 
-addNetworkHandler("Vehicle.AddWeapon", function(iVehicleId, iWeapon) {
+GTAC.addNetworkHandler("Vehicle.AddWeapon", function(iVehicleId, iWeapon) {
 	if(game.game != GAME_GTA_SA) {
 		return false;
 	}
 });
 
-addNetworkHandler("Vehicle.Set.SpawnAngle", function(iVehicleId, fAngle) {
+GTAC.addNetworkHandler("Vehicle.Set.SpawnAngle", function(iVehicleId, fAngle) {
 });
 
-addNetworkHandler("Vehicle.Set.Siren", function(iVehicleId, bSiren) {
+GTAC.addNetworkHandler("Vehicle.Set.Siren", function(iVehicleId, bSiren) {
 });
 
-addNetworkHandler("Vehicle.Set.SirenLight", function(iVehicleId, bSirenLight) {
+GTAC.addNetworkHandler("Vehicle.Set.SirenLight", function(iVehicleId, bSirenLight) {
 });
 
-addNetworkHandler("Vehicle.Set.TaxiLight", function(iVehicleId, bTaxiLight) {
+GTAC.addNetworkHandler("Vehicle.Set.TaxiLight", function(iVehicleId, bTaxiLight) {
 });
 
-addNetworkHandler("Vehicle.Set.LightState", function(iVehicleId, bLightState) {
+GTAC.addNetworkHandler("Vehicle.Set.LightState", function(iVehicleId, bLightState) {
 });
 
-addNetworkHandler("Vehicle.Set.Locked", function(iVehicleId, bLocked) {
+GTAC.addNetworkHandler("Vehicle.Set.Locked", function(iVehicleId, bLocked) {
 });
 
-addNetworkHandler("Vehicle.SetEngineState", function(iVehicleId, bSetEngineState) {
+GTAC.addNetworkHandler("Vehicle.SetEngineState", function(iVehicleId, bSetEngineState) {
 });
 
 // ----------------------------------------------------------------------------
@@ -372,10 +376,9 @@ local nametagColour = [
 
 // ----------------------------------------------------------------------------
 
-addEventHandler("OnResourceStart", function(event, resource) {
-	if(resource == thisResource) {
-		local fontFile = openFile("pricedown.ttf", false);
-		font = lucasFont.createFont(fontFile, 16.0);
+GTAC.addEventHandler("OnResourceStart", function(event, resource) {
+	if(resource == GTAC.thisResource) {
+		font = GTAC.lucasFont.createDefaultFont(12.0, "Roboto", "Light");
 	}
 });
 
@@ -448,15 +451,7 @@ function updateNametags(element) {
 	local screenPos = getScreenFromWorldPosition(elementPos);
 	local name = "";
 	if(screenPos.z >= 0.0) {
-		if(element.type == ELEMENT_PED) {
-			name = "Civilian " + element.id;
-		} else {
-			if(element.type == ELEMENT_PLAYER) {
-				name = element.name;
-			}
-		}
-
-        local health = element.health/100.0;
+	    local health = element.health/100.0;
 		if(health > 1.0) health = 1.0;
 
         local armour = element.armour/100.0;
@@ -464,15 +459,15 @@ function updateNametags(element) {
 
         local distance = getDistance(playerPos,elementPos);
         if(distance < 30.0) {
-			drawNametag(screenPos.x, screenPos.y, health, armour, name, 1.0-distance/30.0);
+			drawNametag(screenPos.x, screenPos.y, health, armour, element.getData("LU.Name"), 1.0-distance/30.0);
 		}
 	}
 }
 
 // ----------------------------------------------------------------------------
 
-addEventHandler("OnDrawnHUD", function(event) {
-	foreach(ii, iv in getPeds()) {
+GTAC.addEventHandler("OnDrawnHUD", function(event) {
+	foreach(ii, iv in GTAC.getPeds()) {
 		//if(iv.isType(ELEMENT_PLAYER)) {
 			if(iv != localPlayer) {
 				updateNametags(iv);

@@ -1,6 +1,14 @@
 <meta>
-	<script src="server.js" type="server" language="javascript" />
+	<info author="Vortrex" description="Wrapper for Liberty Unleashed scripting API" />
 
+	<!-- Beginning of wrapper files. -->
+	<!-- Add these to your resource to allow LU scripting in it -->
+	<script src="shared.nut" type="server" language="squirrel" />
+	<script src="shared.nut" type="client" language="squirrel" />
 	<script src="server.nut" type="server" language="squirrel" />
 	<script src="client.nut" type="client" language="squirrel" />
+	<!-- End of wrapper files -->
+
+	<!-- Below is not needed for wrapper. Just a test script to show it works -->
+	<script src="server_test.nut" type="server" language="squirrel" />
 </meta>
