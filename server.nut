@@ -1,9 +1,20 @@
+// =============================================================================
+// -- Setup and config and shit
+// =============================================================================
+
 GTAC <- getroottable();
 
-LU_PLAYERS <- array(128, false);
-LU_VEHICLES <- array(2048, false);
+// -----------------------------------------------------------------------------
 
-NetworkEventPrefix <- "ChangeMe";
+LU <- {
+	Players = array(128, false),
+	Vehicles = array(1024, false),
+};
+
+// -----------------------------------------------------------------------------
+
+GTAC.addEvent("OnPlayerEnteredVehicle", 3);
+GTAC.addEvent("OnPlayerEnteringVehicle", 3);
 
 // =============================================================================
 // -- Classes
@@ -132,13 +143,13 @@ class LUCivilian {
 			case "Train":
 				if(GTACPlayer.vehicle != null) {
 					if(GTACPlayer.vehicle.type == ELEMENT_TRAIN) {
-						return ::LU_VEHICLES[GTACPlayer.vehicle];
+						return ::LU.Vehicles[GTACPlayer.vehicle];
 					}
 				}
 				return false;
 			case "Vehicle":
 				if(GTACPlayer.vehicle != null) {
-					return ::LU_VEHICLES[GTACPlayer.vehicle];
+					return ::LU.Vehicles[GTACPlayer.vehicle];
 				}
 				return false;
 			case "VehicleSeat":
@@ -166,53 +177,53 @@ class LUCivilian {
 		switch(szKey) {
 			case "Alpha":
 				_Alpha = pValue;
-				//::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				//::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Angle":
 				_Angle = pValue.tofloat();
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tofloat());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tofloat());
 				break;
 
 			case "Armour":
 				_Angle = pValue.tointeger();
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Cash":
 				_Cash = pValue.tointeger();
-				triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			//case "Civilian":
 			//	_IsCivilian = pValue.tointeger();
-			//	triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+			//	triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 			//	break;
 
 			case "Colour":
 				_Colour = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.GTACColour);
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.GTACColour);
 				break;
 
 			case "ColouredName":
 				_ColouredName = pValue.tostring();
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tostring());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tostring());
 				break;
 
 			case "Health":
 				_Health = pValue.tointeger();
-				triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Immune":
 				_Immune = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Marker":
 				_Marker = pValue;
 				GTACPlayer.setData("LU.Marker", pValue.tointeger(), true);
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "MarkerScale":
@@ -229,7 +240,7 @@ class LUCivilian {
 
 			case "Muted":
 				_Muted = pValue;
-				//::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				//::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Name":
@@ -246,52 +257,52 @@ class LUCivilian {
 
 			case "Pos":
 				_Pos = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, _Pos.x, _Pos.y, _Pos.z);
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, _Pos.x, _Pos.y, _Pos.z);
 				break;
 
 			case "Skin":
 				_Skin = pValue.tointeger();
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Team":
 				_Team = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Train":
 				_Train = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.GTACVethicle);
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.GTACVethicle);
 				break;
 
 			case "Vehicle":
 				_Vehicle = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.GTACVehicle);
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.GTACVehicle);
 				break;
 
 			case "VehicleSeat":
 				_VehicleSeat = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Velocity":
 				_Velocity = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.GTACVec3);
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.GTACVec3);
 				break;
 
 			case "VirtualWorld":
 				_VirtualWorld = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "WalkStyle":
 				_WalkStyle = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "WeaponAmmo":
 				_WeaponAmmo = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			default:
@@ -304,6 +315,8 @@ class LUCivilian {
 		GTACCivilian = pGTACCivilian;
 	}
 }
+
+// -----------------------------------------------------------------------------
 
 class LUPlayer {
 
@@ -391,8 +404,6 @@ class LUPlayer {
 	}
 
 	function _get(szKey) {
-		::GTAC.print("GET " + szKey);
-
 		switch(szKey) {
 			case "Alpha":
 				return _Alpha;
@@ -402,8 +413,6 @@ class LUPlayer {
 				return _Armour;
 			case "Cash":
 				return _Cash;
-			//case "Civilian":
-			//	return _IsCivilian;
 			case "Civilian":
 				return _IsCivilian;
 			case "Colour":
@@ -439,13 +448,13 @@ class LUPlayer {
 			case "Train":
 				if(GTACPlayer.vehicle != null) {
 					if(GTACPlayer.vehicle.type == ELEMENT_TRAIN) {
-						return ::LU_VEHICLES[GTACPlayer.vehicle];
+						return ::LU.Vehicles[GTACPlayer.vehicle];
 					}
 				}
 				return false;
 			case "Vehicle":
 				if(GTACPlayer.vehicle != null) {
-					return ::LU_VEHICLES[GTACPlayer.vehicle];
+					return ::LU.Vehicles[GTACPlayer.vehicle];
 				}
 				return false;
 			case "VehicleSeat":
@@ -474,71 +483,67 @@ class LUPlayer {
 
 		switch(szKey) {
 			case "Alpha":
-				_Alpha = pValue;
-				//::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				_Alpha = pValue.tointeger();
+				GTACPlayer.setData("LU.Alpha", pValue.tointeger(), true);
+				//::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Angle":
 				_Angle = pValue.tofloat();
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tofloat());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tofloat());
 				break;
 
 			case "Armour":
 				_Angle = pValue.tointeger();
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Cash":
 				_Cash = pValue.tointeger();
-				triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
-
-			//case "Civilian":
-			//	_IsCivilian = pValue.tointeger();
-			//	triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
-			//	break;
 
 			case "Colour":
 				_Colour = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.GTACColour);
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.GTACColour);
 				break;
 
 			case "ColouredName":
 				_ColouredName = pValue.tostring();
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tostring());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tostring());
 				break;
 
 			case "Health":
 				_Health = pValue.tointeger();
-				triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Immune":
 				_Immune = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Marker":
 				_Marker = pValue;
-				//GTACPlayer.setData("LU.Marker", pValue.tointeger());
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				GTACPlayer.setData("LU.Marker", pValue.tointeger(), true);
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "MarkerScale":
 				_MarkerScale = pValue;
-				//GTACPlayer.setData("LU.MarkerScale", pValue.tointeger());
+				GTACPlayer.setData("LU.MarkerScale", pValue.tointeger(), true);
 				::GTAC.triggerNetworkEvent(szEventName, null, GTACPlayer, pValue.tointeger());
 				break;
 
 			case "MarkerSprite":
 				_MarkerSprite = pValue;
-				//GTACPlayer.setData("LU.MarkerSprite", pValue.tointeger());
+				GTACPlayer.setData("LU.MarkerSprite", pValue.tointeger(), true);
 				::GTAC.triggerNetworkEvent(szEventName, null, GTACPlayer, pValue.tointeger());
 				break;
 
 			case "Muted":
 				_Muted = pValue;
-				//::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				//::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Name":
@@ -547,63 +552,70 @@ class LUPlayer {
 				//::GTAC.triggerNetworkEvent(szEventName, null, GTACPlayer, pValue.tostring());
 				break;
 
+			case "Nametag":
+				_Nametag = pValue;
+				GTACPlayer.setData("LU.Nametag", pValue, true);
+				triggerNetworkEvent(szEventName, null, GTACPlayer, pValue);
+				break;
+
 			case "NametagColour":
 				_NametagColour = pValue;
+				GTACPlayer.setData("LU.NametagColour", pValue, true);
 				triggerNetworkEvent(szEventName, null, GTACPlayer, pValue.tointeger());
 				break;
 
 			case "Pos":
 				_Pos = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, _Pos.x, _Pos.y, _Pos.z);
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, _Pos.x, _Pos.y, _Pos.z);
 
 			case "Skin":
 				_Skin = pValue.tointeger();
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Team":
 				_Team = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Train":
 				_Train = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.GTACVethicle);
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.GTACVethicle);
 				break;
 
 			case "Vehicle":
 				_Vehicle = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.GTACVehicle);
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.GTACVehicle);
 				break;
 
 			case "VehicleSeat":
 				_VehicleSeat = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "Velocity":
 				_Velocity = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.GTACVec3);
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.GTACVec3);
 				break;
 
 			case "VirtualWorld":
 				_VirtualWorld = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "WalkStyle":
 				_WalkStyle = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "WantedLevel":
 				_WantedLevel = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			case "WeaponAmmo":
 				_WeaponAmmo = pValue;
-				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer, pValue.tointeger());
+				::GTAC.triggerNetworkEvent(szEventName, GTACClient, GTACPlayer.id, pValue.tointeger());
 				break;
 
 			default:
@@ -685,8 +697,6 @@ class LUVehicle {
 	}
 
 	function _get(szKey) {
-		::GTAC.print("GET " + szKey);
-
 		switch(szKey) {
 			case "Alarm":
 				return _Alarm;
@@ -703,7 +713,7 @@ class LUVehicle {
 			case "EngineDamage":
 				return _EngineDamage;
 			case "Health":
-				return ::GTAC.triggerNetworkEvent("Vehicle.Get.Health", null, GTACVehicle);
+				return _Health;
 			case "ID":
 				return GTACVehicle.id;
 			case "IdleRespawnTime":
@@ -893,7 +903,7 @@ class LUVehicle {
 // -----------------------------------------------------------------------------
 
 class Colour {
-	_GTACColour = false;
+	GTACColour = false;
 	_r = 0;
 	_g = 0;
 	_b = 0;
@@ -922,20 +932,20 @@ class Colour {
 		switch(szKey) {
 			case "r":
 				local newColour = ::GTAC.toColour(pValue, _g, _b, _alpha);
-				_GTACColour = newColour;
+				GTACColour = newColour;
 				return true;
 
 			case "g":
 				local newColour = ::GTAC.toColour(_r, pValue, _b, _alpha);
-				_GTACColour = newColour;
+				GTACColour = newColour;
 
 			case "b":
 				local newColour = ::GTAC.toColour(_r, _g, pValue, _alpha);
-				_GTACColour = newColour;
+				GTACColour = newColour;
 
 			case "alpha":
 				local newColour = ::GTAC.toColour(_r, _g, _b, pValue);
-				_GTACColour = newColour;
+				GTACColour = newColour;
 
 			default:
 				return false;
@@ -997,12 +1007,24 @@ class Vector {
 	}
 }
 
+// -----------------------------------------------------------------------------
+
+function gtacGetPlayerVehicleSeat(pClient) {
+	for(local i = 0 ; i <= 4 ; i++) {
+		if(pClient.player.vehicle.getOccupant(i) == pClient.player) {
+			return i;
+		}
+	}
+
+	return -1;
+}
+
 // =============================================================================
 // -- Misc Functions
 // =============================================================================
 
 function MessagePlayer(szMessage, pPlayer, pColour = Colour(255, 255, 255)) {
-	message(szMessage, pColour.GTACColour, pPlayer._GTACClient);
+	message(szMessage, pColour.GTACColour, pPlayer.GTACClient);
 }
 
 // -----------------------------------------------------------------------------
@@ -1036,11 +1058,11 @@ function IsNum(iInteger) {
 function FindPlayer(szParams) {
 	if(type(szParams) == "integer") {
 		local iPlayerID = szParams.tointeger();
-		if(LU_PLAYERS[iPlayerID]) {
-			return LU_PLAYERS[iPlayerID];
+		if(LU.Players[iPlayerID]) {
+			return LU.Players[iPlayerID];
 		}
 	} else {
-		foreach(ii, iv in LU_PLAYERS) {
+		foreach(ii, iv in LU.Players) {
 			if(iv.Name.tolower().find(szParams.tolower()) != -1) {
 				return iv;
 			}
@@ -1055,8 +1077,8 @@ function FindPlayer(szParams) {
 function FindVehicle(szParams) {
 	if(type(szParams) == "integer") {
 		local iVehicleID = szParams.tointeger();
-		if(LU_VEHICLES[iVehicleID]) {
-			return LU_VEHICLES[iVehicleID];
+		if(LU.Vehicles[iVehicleID]) {
+			return LU.Vehicles[iVehicleID];
 		}
 	}
 
@@ -1071,7 +1093,7 @@ function CreateVehicle(iModel, pPosition, fRotation, iColour1, iColour2, iGame =
 	pVehicle.position = pPosition.GTACVector;
 	pVehicle.heading = fRotation;
 	addToWorld(pVehicle);
-	LU_VEHICLES[pVehicle] = ::LUVehicle(pVehicle);
+	LU.Vehicles[pVehicle] = ::LUVehicle(pVehicle);
 }
 
 // -----------------------------------------------------------------------------
@@ -1087,20 +1109,19 @@ function GetClients() {
 // -----------------------------------------------------------------------------
 
 // =============================================================================
-// -- GTA Connected Event Hooks
+// -- Event Hooks
 // =============================================================================
 
 GTAC.addEventHandler("OnResourceStart", function(pEvent, pResource) {
-
-	local clients = GetClients();
-	foreach(ii, iv in clients) {
-		::LU_PLAYERS[client.index] = ::LUPlayer(iv);
+	foreach(ii, iv in GTAC.getClients()) {
+		LU.Players[iv.index] = ::LUPlayer(iv);
 	}
 
 	if(pResource == GTAC.thisResource) {
 		if(getroottable().rawin("onScriptLoad")) {
-			if(type(onPlayerCommand) == "function") {
-				onScriptLoad();
+			local func = getroottable().rawget("onScriptLoad");
+			if(type(func) == "function") {
+				func.call(this);
 			}
 		}
 	}
@@ -1108,46 +1129,117 @@ GTAC.addEventHandler("OnResourceStart", function(pEvent, pResource) {
 
 // -----------------------------------------------------------------------------
 
-GTAC.addEventHandler("OnPlayerConnect", function(pEvent, szIP, szPort) {
-	if(getroottable().rawin("OnPlayerConnect")) {
-		if(type(onPlayerCommand) == "function") {
-			onPlayerCommand(LU_PLAYERS[pClient.index], szCommand.slice(1, szCommand.len()), szParams);
+GTAC.addEventHandler("OnResourceStop", function(pEvent, pResource) {
+	if(pResource == GTAC.thisResource) {
+		if(getroottable().rawin("onScriptUnload")) {
+			local func = getroottable().rawget("onScriptUnload");
+			if(type(func) == "function") {
+				func.call(this);
+			}
 		}
 	}
+
+	// Cleanup
+	GTAC.collectAllGarbage();
 });
+
+// -----------------------------------------------------------------------------
+
+GTAC.addEventHandler("OnServerStart", function(pEvent, pResource) {
+	if(!LU.Players[pClient.index]) {
+		LU.Players[pClient.index] = ::LUPlayer(pClient);
+	}
+
+	if(pResource == GTAC.thisResource) {
+		if(getroottable().rawin("onServerStart")) {
+			local func = getroottable().rawget("onServerStart");
+			if(type(func) == "function") {
+				func.call(this);
+			}
+		}
+	}
+
+	// Cleanup
+	GTAC.collectAllGarbage();
+});
+
+// -----------------------------------------------------------------------------
 
 GTAC.addEventHandler("OnPlayerQuit", function(pEvent, pClient, iReason) {
+	if(!LU.Players[pClient.index]) {
+		LU.Players[pClient.index] = ::LUPlayer(pClient);
+	}
+
 	if(getroottable().rawin("onPlayerPart")) {
-		if(type(onPlayerCommand) == "function") {
-			onPlayerPart(LU_PLAYERS[pClient], iReason);
+		local func = getroottable().rawget("onPlayerPart");
+		if(type(func) == "function") {
+			func.call(this, LU.Players[pClient.index], iReason);
 		}
 	}
+
+	LU.Players[pClient.index] = false;
 });
 
-GTAC.addEventHandler("OnPlayerEnterVehicle", function(pEvent, pClient, pVehicle, bIsDriver) {
-	if(getroottable().rawin("onPlayerEnteredVehicle")) {
-		if(type(onPlayerEnteredVehicle) == "function") {
-			onPlayerEnteredVehicle(LU_PLAYERS[pClient], LU_VEHICLES[pClient.vehicle], (bIsDriver)?0:1);
+// -----------------------------------------------------------------------------
+
+GTAC.addEventHandler("OnPlayerEnteringVehicle", function(pEvent, pClient, pVehicle, iSeat) {
+	if(!LU.Players[pClient.index]) {
+		LU.Players[pClient.index] = ::LUPlayer(pClient);
+	}
+
+	if(getroottable().rawin("onPlayerEnteringVehicle")) {
+		local func = getroottable().rawget("onPlayerEnteringVehicle");
+		if(type(func) == "function") {
+			func.call(this, LU.Players[pClient.index], LU.Vehicles[pClient.vehicle.id], iSeat);
 		}
 	}
 });
 
 // -----------------------------------------------------------------------------
 
-GTAC.addEventHandler("OnElementStreamIn", function(pEvent, pElement) {
+GTAC.addEventHandler("OnPlayerEnteredVehicle", function(pEvent, pClient, pVehicle) {
+	if(!LU.Players[pClient.index]) {
+		LU.Players[pClient.index] = ::LUPlayer(pClient);
+	}
 
+	if(getroottable().rawin("onPlayerEnteredVehicle")) {
+		local func = getroottable().rawget("onPlayerEnteredVehicle");
+		if(type(func) == "function") {
+			func.call(this, LU.Players[pClient.index], LU.Vehicles[pClient.vehicle.id], getPlayerVehicleSeat(pClient));
+		}
+	}
+});
+
+// -----------------------------------------------------------------------------
+
+GTAC.addEventHandler("OnPlayerJoin", function(pEvent, pClient) {
+	if(!LU.Players[pClient.index]) {
+		LU.Players[pClient.index] = ::LUPlayer(pClient);
+	}
+
+	if(getroottable().rawin("onPlayerConnect")) {
+		if(type(onPlayerCommand) == "function") {
+			local func = getroottable().rawget("onPlayerConnect");
+			if(type(func) == "function") {
+				func.call(this, LU.Players[pClient.index]);
+			}
+		}
+	}
 });
 
 // -----------------------------------------------------------------------------
 
 GTAC.addEventHandler("OnPlayerJoined", function(pEvent, pClient) {
-	if(LU_PLAYERS[pClient] == false) {
-		LU_PLAYERS[pClient] = ::LUPlayer(pClient);
+	if(!LU.Players[pClient.index]) {
+		LU.Players[pClient.index] = ::LUPlayer(pClient);
 	}
 
-	if(getroottable().rawin("onPlayerConnect")) {
+	if(getroottable().rawin("onPlayerJoin")) {
 		if(type(onPlayerCommand) == "function") {
-			onPlayerConnect();
+			local func = getroottable().rawget("onPlayerJoin");
+			if(type(func) == "function") {
+				func.call(this, LU.Players[pClient.index]);
+			}
 		}
 	}
 });
@@ -1155,33 +1247,60 @@ GTAC.addEventHandler("OnPlayerJoined", function(pEvent, pClient) {
 // -----------------------------------------------------------------------------
 
 GTAC.addEventHandler("OnPlayerChat", function(pEvent, pClient, szMessage) {
-	if(LU_PLAYERS[pClient.index] == false) {
-		LU_PLAYERS[pClient] = ::LUPlayer(pClient);
+	if(!LU.Players[pClient.index]) {
+		LU.Players[pClient.index] = ::LUPlayer(pClient);
+	}
+
+	if(getroottable().rawin("onPlayerChat")) {
+		if(type(onPlayerCommand) == "function") {
+			local func = getroottable().rawget("onPlayerChat");
+			if(type(func) == "function") {
+				local pResult = func.call(this, LU.Players[pClient.index]);
+
+				// Check if returned 0 to cancel the normal chat output
+				if(pResult == 0) {
+					pEvent.preventDefault();
+				}
+			}
+		}
 	}
 });
+
+// -----------------------------------------------------------------------------
 
 GTAC.addEventHandler("OnPlayerCommand", function(pEvent, pClient, szCommand, szParams) {
+	if(!LU.Players[pClient.index]) {
+		LU.Players[pClient.index] = ::LUPlayer(pClient);
+	}
+
 	if(getroottable().rawin("onPlayerCommand")) {
-		if(type(onPlayerCommand) == "function") {
-			onPlayerCommand(LU_PLAYERS[pClient], szCommand, szParams);
+		local func = getroottable().rawget("onPlayerCommand");
+		if(type(func) == "function") {
+			func.call(this, LU.Players[pClient.index], szCommand, szParams);
 		}
 	}
 });
 
-// =============================================================================
-// -- Other Shit
-// =============================================================================
+// -----------------------------------------------------------------------------
 
-GTAC.addCommandHandler("", function(szCommand, szParams, pClient) {
-	if(getroottable().rawin("onPlayerCommand")) {
-		if(type(onPlayerCommand) == "function") {
-			onPlayerCommand(LU_PLAYERS[pClient], szCommand.slice(1, szCommand.len()), szParams);
+GTAC.addEventHandler("OnProcess", function(pEvent, iDeltaTime) {
+	foreach(ii, iv in GTAC.getClients()) {
+		if(iv.player != null) {
+			if(iv.player.vehicle != null) {
+				if(iv.player.getData("vehicle") == null) {
+					triggerEvent("OnPlayerEnteredVehicle", LU.Players[iv.index], LU.Vehicles[iv.player.vehicle.id], gtacGetPlayerVehicleSeat(pClient));
+				}
+			}
 		}
 	}
 });
 
-GTAC.addCommandHandler("sr", function(szCommand, szParams, pClient) {
-	local szOutput = compilestring("return " + szParams)();
-	message("Code executed! " + szParams, COLOUR_YELLOW);
-	message("Returns: " + szOutput, COLOUR_YELLOW);
+// -----------------------------------------------------------------------------
+
+GTAC.addEventHandler("OnPedEnterVehicle", function(pEvent, pPed, pVehicle, iSeat) {
+	if(pPed.isType(GTAC.ELEMENT_PLAYER)) {
+		triggerEvent("OnPlayerEnteringVehicle", LU.Players[getClientFromPlayerElement(pPed).index], pVehicle, iSeat);
+	}
 });
+
+// -----------------------------------------------------------------------------
