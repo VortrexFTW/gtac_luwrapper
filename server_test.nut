@@ -53,34 +53,3 @@ function onPlayerCommand(pPlayer, szCommand, szParams) {
 	    MessagePlayer("Code executed! " + szOutput, Colour(255, 255, 0));
     }
 }
-
-// =============================================================================
-// -- Test stuff (temporary)
-// =============================================================================
-
-// This is not for the wrapper, just a helpful util while I script it.
-addCommandHandler("sse", function(szCommand, szParams, pClient) {
-    if(!szParams || szParams == "") {
-        messageClient("Syntax: /sse <code>", pClient, findResourceByName("v-utils").exports.getSyntaxMessageColour(gta.game));
-        return false;
-    }
-
-	compilestring(szParams)();
-	messageClient("Squirrel server code executed: " + szParams, pClient, COLOUR_YELLOW);
-});
-
-// ----------------------------------------------------------------------------
-
-// This is not for the wrapper, just a helpful util while I script it.
-addCommandHandler("ssr", function(szCommand, szParams, pClient) {
-    if(!szParams || szParams == "") {
-        messageClient("Syntax: /sse <code>", pClient, findResourceByName("v-utils").exports.getSyntaxMessageColour(gta.game));
-        return false;
-    }
-
-	local szOutput = compilestring("return " + szParams)();
-	messageClient("Squirrel server code executed: " + szParams, pClient, COLOUR_YELLOW);
-	messageClient("Returns: " + szOutput, pClient, COLOUR_YELLOW);
-});
-
-// ----------------------------------------------------------------------------
